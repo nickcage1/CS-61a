@@ -1,0 +1,133 @@
+"""def keep_ints(cond , n):
+    k = 1
+    while k <= n:
+        if cond(k):
+            print (k)
+        k = k + 1
+"""
+def is_even(x):
+    return x % 2 == 0
+
+def make_keeper(n):
+    def keeper_2(cond):
+        k = 1
+        while k <= n:
+            if cond(k):
+                print (k)
+            k = k + 1
+    return keeper_2
+
+curry2 = lambda f: lambda x: lambda y: f(x , y)
+test = curry2(lambda x , y: x + y)(3)
+
+def print_all (x):
+    print (x)
+    return print_all
+
+def print_delayed(x):
+    def delay_print(y):
+        print (x)
+        return print_delayed(y)
+    return delay_print
+
+def print_n(n):
+    def inner_print(x):
+        if n == 0:
+            print ("done")
+        else :
+            print (x)
+        return print_n(n-1)
+    return inner_print
+
+def remove (n , digit):
+    kept , digits = 0 , 0
+    while n > 0:
+        n , last = n // 10 , n % 10
+        if last != digit:
+            kept = kept + last*10**digits
+            digits = digits + 1
+    return kept
+
+def split(n):
+    return n // 10 , n % 10
+
+def sum_digits (n) :
+    if n < 10:
+        return n
+    else:
+        all_but_last , last = split (n)
+        return sum_digits(all_but_last) + last
+
+def luhn_sum(n):
+    if n < 10:
+        return n
+    else:
+        all_but_last , last = split(n)
+        return luhn_sum_double(all_but_last) + last
+
+def luhn_sum_double(n):
+    all_but_last , last = split (n)
+    luhn_digit = sum_digits(2 * last)
+    if n < 10:
+        return luhn_digit
+    else:
+        return luhn_sum(all_but_last) + luhn_digit
+
+def multiply (m , n):
+    if n == 1:
+        return m
+    elif n == 0:
+        return 0
+    else:
+        return multiply(m , n-1) + m
+
+def hailstone(n):
+    even_result = n // 2
+    odd_result = 3*n+1
+    if n == 1:
+        print (1)
+        return 1
+    elif n % 2 == 0:
+        print (n)
+        n = even_result
+    else:
+        print (n)
+        n = odd_result
+    return hailstone(n) + 1
+
+def merge(n1 , n2):
+    if n1 >= 10 and n2 >= 10:
+        if n1 % 10 >= n2 % 10:
+            return merge(n1 , n2 // 10)*10 + n2 % 10
+        else:
+            return merge(n1 // 10 , n1)*10 + n1 % 10
+    elif n1 == 0 or n2 == 0:
+        if n2 != 0:
+            return merge(n1 , 0)*10 + n2
+        elif n1 != 0:
+            return merge(0 , n2)*10 + n1
+        else:
+            return 0
+    elif n1 < 10 and n2 < 10:
+        if n1 >= n2:
+            return merge(n1 , 0)*10 + n2
+        else:
+            return merge(0 , n2)*10 + n1
+    elif n1 < 10 or n2 < 10:
+        if n1 >= 10:
+            return merge(n1 // 10 , n2)*10 + n1 % 10
+        else:
+            return merge(n1 , n2 // 10)*10 + n2 % 10
+
+def is_prime(n):
+    k = 2
+    if n == 1:
+        return False
+    def prime_helper(k):
+        if k == n:
+            return True
+        elif n % k != 0:
+            return prime_helper(k+1)
+        else:
+            return False
+    return prime_helper(k)

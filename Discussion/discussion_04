@@ -1,0 +1,54 @@
+def stairs(n):
+    if n == 0:
+        return 1
+    elif n < 0:
+        return 0
+    return stairs(n-1) + stairs(n-2)
+
+def count_k(n , k):
+    function = 0
+    if n == 0:
+        return 1
+    elif n < 0:
+        return 0
+    for element in range(0 , k):
+        function = function + count_k(n - (k-element), k)
+    return function
+
+def even_weighted(s):
+    i = 0
+    x = [0]
+    while i <= (len(s)-1):
+        for element in s:
+            if s[i] == element:
+                x = x + [element*i]
+        i += 1
+    return x[1:len(s):2]
+
+def max_product(s):
+    i_1 = 0
+    i_2 = 1
+    skip_1 = 1
+    skip_2 = 1
+    def helper_1(i_1):
+        if i >= len(s):
+            return 1
+        else:
+            skip_1 =
+    return max(skip_1 , skip_2)
+
+    """"    total = 1
+    max = 0
+    for element in s:
+        s = s[1:]
+        i = 0
+        if total > max:
+            max = total
+        total = element
+        for x in s:
+            if x == s[i]:
+                i = i
+            else:
+                total = total*x
+                i += 2
+    return max"""
