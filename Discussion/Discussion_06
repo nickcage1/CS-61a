@@ -1,0 +1,36 @@
+def memory(n):
+    def helper(f):
+        nonlocal n
+        n = f(n)
+        return n
+    return helper
+
+def group_by(s,fn):
+    grouped = {}
+    for element in s:
+        key = fn(element)
+        if key in grouped:
+            grouped[key] = [grouped[key],element]
+        else:
+            grouped[key] = element
+    return grouped
+
+def add_this_many(x , el ,s):
+    for element in range(0,x):
+        s.append(el)
+    return s
+
+def filter(iterable, fn):
+    itera = iter(iterable)
+    for x in itera:
+        if fn(x):
+            yield x
+
+def merge(a,b):
+    while True:
+        current_a = next(a)
+        current_b = next(b)
+        old = max(current_a,current_b)
+        yield min(current_a,current_b)
+
+
